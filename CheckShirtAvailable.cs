@@ -21,7 +21,11 @@ namespace iamnook
         // every 24/6 hour, i.e., 0,6,12,18 o'clock
         [FunctionName("CheckShirtAvailable")]
         public static async Task Run(
-            [TimerTrigger("0 0 */6 * * *", RunOnStartup = true)] TimerInfo timer,
+            [TimerTrigger("0 0 */6 * * *"
+#if DEBUG
+            , RunOnStartup = true
+#endif
+            )] TimerInfo timer,
             ILogger log)
         {
             log.LogInformation($"Start checking Nook's shirt at: {DateTime.Now}");
